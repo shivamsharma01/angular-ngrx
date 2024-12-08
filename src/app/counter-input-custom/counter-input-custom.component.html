@@ -1,0 +1,8 @@
+<div class="form-control">
+  <div class="my-3">{{ channelName$ | async }}</div>
+  <input type="number" [(ngModel)]="value" />
+  <button (click)="add()" class="btn btn-primary">Add</button>
+</div>
+<button (click)="addChannelName()" class="btn btn-primary">
+  Change Channel
+</button>
