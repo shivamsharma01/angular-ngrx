@@ -23,9 +23,6 @@ const _counterReducer = createReducer(
   }))
 );
 
-export function counterReducer(
-  state: CounterState | undefined,
-  action: Action
-) {
+export function counterReducer(state, action) {
   return _counterReducer(state, action);
 }
