@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('./posts/').then((m) => m.POSTS_ROUTES),
   },
   {
+    path: 'login',
+    loadChildren: () => import('./auth/').then((m) => m.AUTH_ROUTES),
+  },
+  {
     path: '',
     redirectTo: 'counter',
     pathMatch: 'full',

@@ -1,11 +1,11 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import {
-  channelName,
-  customIncrement,
-  decrement,
-  increment,
-  reset,
-} from './counter.action';
+  CHANNEL_NAME_ACTION,
+  CUSTOM_INCREMENT_ACTION,
+  DECREMENT_ACTION,
+  INCREMENT_ACTION,
+  RESET_ACTION,
+} from './counter.actions';
 import { CounterState, initialState } from './counter.state';
 
 export const COUNTER_FEATURE_KEY = 'counter';
@@ -18,14 +18,14 @@ export const counterFeature = createFeature({
   name: COUNTER_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(increment, (state) => ({ ...state, counter: state.counter + 1 })),
-    on(decrement, (state) => ({ ...state, counter: state.counter - 1 })),
-    on(reset, (state) => ({ ...state, counter: 0 })),
-    on(customIncrement, (state, action) => ({
+    on(INCREMENT_ACTION, (state) => ({ ...state, counter: state.counter + 1 })),
+    on(DECREMENT_ACTION, (state) => ({ ...state, counter: state.counter - 1 })),
+    on(RESET_ACTION, (state) => ({ ...state, counter: 0 })),
+    on(CUSTOM_INCREMENT_ACTION, (state, action) => ({
       ...state,
       counter: state.counter + action.value,
     })),
-    on(channelName, (state) => ({
+    on(CHANNEL_NAME_ACTION, (state) => ({
       ...state,
       channelName: 'updated',
     }))

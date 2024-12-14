@@ -3,6 +3,16 @@
     <div class="mb-3">
       <label>Title</label>
       <input type="text" class="form-control" formControlName="title" />
+      @if (postForm.controls['title'].touched &&
+      !postForm.controls['title'].valid) { @if
+      (postForm.controls['title'].errors?.['required']) {
+      <p class="text text-danger">Title is Required</p>
+      } @if (postForm.controls['title'].errors?.['minlength']) {
+      <p class="text text-danger">
+        Minimum Length
+        {{ postForm.controls['title'].errors?.['minlength']['requiredLength'] }}
+      </p>
+      } }
     </div>
     <div class="mb-3">
       <label>Description</label>
@@ -11,9 +21,25 @@
         class="form-control"
         formControlName="description"
       ></textarea>
+      @if (postForm.controls['description'].touched &&
+      !postForm.controls['description'].valid) { @if
+      (postForm.controls['description'].errors?.['required']) {
+      <p class="text text-danger">Description is Required</p>
+      } @if (postForm.controls['description'].errors?.['minlength']) {
+      <p class="text text-danger">
+        Minimum Length
+        {{ postForm.controls['description'].errors?.['minlength']['requiredLength'] }}
+      </p>
+      } }
     </div>
     <div class="my-3">
-      <button class="btn btn-primary" type="submit">Add Post</button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!postForm.valid"
+      >
+        Add Post
+      </button>
     </div>
   </form>
 </div>

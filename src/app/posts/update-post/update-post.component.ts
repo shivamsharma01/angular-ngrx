@@ -7,10 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Post, PostsState } from '../posts-store/posts.state';
-import { getPostsById } from '../posts-store/posts.selector';
+import { Post } from '../posts-store/posts.state';
+import { getPostsByIdSelector } from '../posts-store/posts.selector';
 import { Observable, Subscription } from 'rxjs';
-import { updatePost } from '../posts-store/posts.action';
+import { UPDATE_POST_ACTION } from '../posts-store/posts.actions';
+import { PostsSlice } from '../posts-store/posts.reducer';
 
 @Component({
   selector: 'app-update-post',
@@ -24,7 +25,7 @@ export class UpdatePostComponent {
   postForm: FormGroup;
 
   constructor(
-    private store: Store<PostsState>,
+    private store: Store<PostsSlice>,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -43,13 +44,13 @@ export class UpdatePostComponent {
     });
     this.subscription = this.activatedRoute.paramMap.subscribe(
       (params: ParamMap) => {
-        const id = params.get('id');
-        this.populateForm(this.store.select(getPostsById, { id }));
+        const id = params.get('id') as string;
+        this.populateForm(this.store.select(getPostsByIdSelector(id)));
       }
     );
   }
 
-  populateForm(post$: Observable<Post>): void {
+  populateForm(post$: Observable<Post | undefined>): void {
     post$.subscribe((post) => {
       if (post) {
         this.postForm.patchValue(post);
@@ -60,7 +61,7 @@ export class UpdatePostComponent {
   update() {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
-      this.store.dispatch(updatePost({ post }));
+      this.store.dispatch(UPDATE_POST_ACTION({ post }));
       this.router.navigate(['posts']);
     }
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CounterState } from '../counter-store/counter.state';
-import { decrement, increment, reset } from '../counter-store/counter.action';
+import { DECREMENT_ACTION, INCREMENT_ACTION, RESET_ACTION } from '../counter-store/counter.actions';
+import { CounterSlice } from '../counter-store/counter.reducer';
 
 @Component({
   selector: 'app-counter-input',
@@ -11,17 +11,17 @@ import { decrement, increment, reset } from '../counter-store/counter.action';
   styleUrl: './counter-input.component.css',
 })
 export class CounterInputComponent {
-  constructor(private store: Store<CounterState>) {}
+  constructor(private store: Store<CounterSlice>) {}
 
   increment() {
-    this.store.dispatch(increment());
+    this.store.dispatch(INCREMENT_ACTION());
   }
 
   decrement() {
-    this.store.dispatch(decrement());
+    this.store.dispatch(DECREMENT_ACTION());
   }
 
   reset() {
-    this.store.dispatch(reset());
+    this.store.dispatch(RESET_ACTION());
   }
 }

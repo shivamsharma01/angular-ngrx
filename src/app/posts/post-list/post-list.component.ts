@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Post, PostsState } from '../posts-store/posts.state';
-import { getPosts } from '../posts-store/posts.selector';
+import { Post } from '../posts-store/posts.state';
+import { getPostsSelector } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { removePost } from '../posts-store/posts.action';
+import { REMOVE_POST_ACTION } from '../posts-store/posts.actions';
+import { PostsSlice } from '../posts-store/posts.reducer';
 
 @Component({
   selector: 'app-post-list',
@@ -17,13 +18,13 @@ import { removePost } from '../posts-store/posts.action';
 export class PostListComponent {
   posts$: Observable<Post[]>;
 
-  constructor(private store: Store<PostsState>) {}
+  constructor(private store: Store<PostsSlice>) {}
 
   ngOnInit() {
-    this.posts$ = this.store.select(getPosts);
+    this.posts$ = this.store.select(getPostsSelector);
   }
 
   removePostById(id: string) {
-    this.store.dispatch(removePost({ id }));
+    this.store.dispatch(REMOVE_POST_ACTION({ id }));
   }
 }

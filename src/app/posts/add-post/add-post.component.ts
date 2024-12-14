@@ -5,21 +5,23 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Post, PostsState } from '../posts-store/posts.state';
+import { Post } from '../posts-store/posts.state';
 import { Store } from '@ngrx/store';
-import { addPost } from '../posts-store/posts.action';
+import { ADD_POST_ACTION } from '../posts-store/posts.actions';
+import { CommonModule } from '@angular/common';
+import { PostsSlice } from '../posts-store/posts.reducer';
 
 @Component({
   selector: 'app-add-post',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.css',
 })
 export class AddPostComponent {
   postForm: FormGroup;
 
-  constructor(private store: Store<PostsState>) {}
+  constructor(private store: Store<PostsSlice>) {}
   ngOnInit() {
     this.postForm = new FormGroup({
       title: new FormControl('', [
@@ -36,7 +38,7 @@ export class AddPostComponent {
   submit() {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
-      this.store.dispatch(addPost({ post }));
+      this.store.dispatch(ADD_POST_ACTION({ post }));
     }
   }
 }

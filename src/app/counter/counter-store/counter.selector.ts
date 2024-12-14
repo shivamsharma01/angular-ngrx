@@ -3,10 +3,10 @@ import { CounterState } from './counter.state';
 
 const counterState = createFeatureSelector<CounterState>('counter');
 
-export const counter = createSelector(counterState, (state) => {
+export const counterSelector = createSelector(counterState, (state) => {
   return state.counter;
 });
 
-export const channelName = createSelector(counterState, (state) => {
+export const channelNameSelector = createSelector(counterState, (state) => {
   return state.channelName;
 });
