@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Post } from '../posts-store/posts.state';
+import { Post, PostsState } from '../posts-store/posts.state';
 import { getPosts } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -18,7 +17,7 @@ import { removePost } from '../posts-store/posts.action';
 export class PostListComponent {
   posts$: Observable<Post[]>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<PostsState>) {}
 
   ngOnInit() {
     this.posts$ = this.store.select(getPosts);

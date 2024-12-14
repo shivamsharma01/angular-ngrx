@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Post, PostsState } from '../posts-store/posts.state';
-import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
 import { addPost } from '../posts-store/posts.action';
 
@@ -20,7 +19,7 @@ import { addPost } from '../posts-store/posts.action';
 export class AddPostComponent {
   postForm: FormGroup;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<PostsState>) {}
   ngOnInit() {
     this.postForm = new FormGroup({
       title: new FormControl('', [

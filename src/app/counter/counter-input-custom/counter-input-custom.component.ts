@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { channelName } from '../counter-store/counter.selector';
 import { CommonModule } from '@angular/common';
-import { AppState } from '../../store/app.state';
 
 @Component({
   selector: 'app-counter-input-custom',
@@ -22,7 +21,7 @@ export class CounterInputCustomComponent {
   value: number;
   channelName$: Observable<string>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<CounterState>) {
     this.value = 0;
     this.channelName$ = this.store.select(channelName);
   }

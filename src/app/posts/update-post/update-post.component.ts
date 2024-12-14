@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
   FormControl,
@@ -8,9 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Post } from '../posts-store/posts.state';
-import { getPosts, getPostsById } from '../posts-store/posts.selector';
-import { map, Observable, Subscription } from 'rxjs';
+import { Post, PostsState } from '../posts-store/posts.state';
+import { getPostsById } from '../posts-store/posts.selector';
+import { Observable, Subscription } from 'rxjs';
 import { updatePost } from '../posts-store/posts.action';
 
 @Component({
@@ -25,7 +24,7 @@ export class UpdatePostComponent {
   postForm: FormGroup;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<PostsState>,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}

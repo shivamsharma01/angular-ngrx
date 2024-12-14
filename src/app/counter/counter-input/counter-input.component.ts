@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CounterState } from '../counter-store/counter.state';
 import { decrement, increment, reset } from '../counter-store/counter.action';
-import { AppState } from '../../store/app.state';
 
 @Component({
   selector: 'app-counter-input',
@@ -12,7 +11,7 @@ import { AppState } from '../../store/app.state';
   styleUrl: './counter-input.component.css',
 })
 export class CounterInputComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<CounterState>) {}
 
   increment() {
     this.store.dispatch(increment());
