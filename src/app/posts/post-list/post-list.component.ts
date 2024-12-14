@@ -6,6 +6,7 @@ import { Post } from '../posts-store/posts.state';
 import { getPosts } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { removePost } from '../posts-store/posts.action';
 
 @Component({
   selector: 'app-post-list',
@@ -21,5 +22,9 @@ export class PostListComponent {
 
   ngOnInit() {
     this.posts$ = this.store.select(getPosts);
+  }
+
+  removePostById(id: string) {
+    this.store.dispatch(removePost({ id }));
   }
 }

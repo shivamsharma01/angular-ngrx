@@ -35,7 +35,9 @@ export class AddPostComponent {
   }
 
   submit() {
-    const form: Post = this.postForm.value;
-    this.store.dispatch(addPost({ post: form }));
+    if (this.postForm.valid) {
+      const post: Post = this.postForm.value;
+      this.store.dispatch(addPost({ post }));
+    }
   }
 }

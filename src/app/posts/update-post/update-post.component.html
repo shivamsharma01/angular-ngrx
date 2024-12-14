@@ -1,0 +1,17 @@
+<form [formGroup]="postForm" (ngSubmit)="update()">
+  <div class="mb-3">
+    <label>Title</label>
+    <input type="text" class="form-control" formControlName="title" />
+  </div>
+  <div class="mb-3">
+    <label>Description</label>
+    <textarea
+      type="text"
+      class="form-control"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <div class="my-3">
+    <button class="btn btn-primary" type="submit" [disabled]="!postForm.valid">Update Post</button>
+  </div>
+</form>
