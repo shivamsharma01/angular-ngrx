@@ -1,8 +1,4 @@
-export interface Post {
-  id?: string;
-  title: string;
-  description: string;
-}
+import { Post } from '../../models/post.model';
 
 export interface PostsState {
   posts: Post[];

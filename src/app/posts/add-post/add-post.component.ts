@@ -5,11 +5,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Post } from '../posts-store/posts.state';
 import { Store } from '@ngrx/store';
 import { ADD_POST_ACTION } from '../posts-store/posts.actions';
 import { CommonModule } from '@angular/common';
 import { PostsSlice } from '../posts-store/posts.reducer';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-add-post',

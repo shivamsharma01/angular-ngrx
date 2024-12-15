@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Post } from '../posts-store/posts.state';
 import { getPostsSelector } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { REMOVE_POST_ACTION } from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-list',

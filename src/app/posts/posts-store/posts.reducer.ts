@@ -1,6 +1,11 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { initalState, Post, PostsState } from './posts.state';
-import { ADD_POST_ACTION, REMOVE_POST_ACTION, UPDATE_POST_ACTION } from './posts.actions';
+import { initalState, PostsState } from './posts.state';
+import {
+  ADD_POST_ACTION,
+  REMOVE_POST_ACTION,
+  UPDATE_POST_ACTION,
+} from './posts.actions';
+import { Post } from '../../models/post.model';
 
 export const POSTS_FEATURE_KEY = 'posts';
 

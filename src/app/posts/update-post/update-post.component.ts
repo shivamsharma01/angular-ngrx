@@ -7,11 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Post } from '../posts-store/posts.state';
 import { getPostsByIdSelector } from '../posts-store/posts.selector';
 import { Observable, Subscription } from 'rxjs';
 import { UPDATE_POST_ACTION } from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-update-post',

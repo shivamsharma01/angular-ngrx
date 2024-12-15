@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { Post } from './posts.state';
+import { Post } from '../../models/post.model';
 
-export const ADD_POST_ACTION = createAction('[Posts] Add', props<{ post: Post }>());
+export const ADD_POST_ACTION = createAction(
+  '[Posts] Add',
+  props<{ post: Post }>()
+);
 export const UPDATE_POST_ACTION = createAction(
   '[Posts] Update',
   props<{ post: Post }>()
