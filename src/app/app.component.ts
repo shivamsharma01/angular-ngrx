@@ -5,7 +5,10 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
 import { SHARED_LOADING_SLICE } from './shared/store/shared.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { showLoadingSelector } from './shared/store/shared.selector';
+import {
+  getErrorMessageSelector,
+  getLoadingSelector,
+} from './shared/store/shared.selector';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -23,10 +26,12 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'counter-store';
   loadingStatus$: Observable<boolean>;
+  errorMessage$: Observable<string>;
 
   constructor(private store: Store<SHARED_LOADING_SLICE>) {}
 
   ngOnInit() {
-    this.loadingStatus$ = this.store.select(showLoadingSelector);
+    this.loadingStatus$ = this.store.select(getLoadingSelector);
+    this.errorMessage$ = this.store.select(getErrorMessageSelector);
   }
 }

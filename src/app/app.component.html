@@ -4,6 +4,11 @@
 }
 <div class="container">
   <div class="row">
-    <router-outlet></router-outlet>
+    <div class="col-md-12">
+      @if ((errorMessage$ | async)) {
+      <div class="alert alert-danger">{{ errorMessage$ | async }}</div>
+      }
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

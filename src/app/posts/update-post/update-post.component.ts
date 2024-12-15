@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { getPostsByIdSelector } from '../posts-store/posts.selector';
 import { Observable, Subscription } from 'rxjs';
-import { UPDATE_POST_ACTION } from '../posts-store/posts.actions';
+import { setUpdatePostAction } from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
 import { Post } from '../../models/post.model';
 
@@ -61,7 +61,7 @@ export class UpdatePostComponent {
   update() {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
-      this.store.dispatch(UPDATE_POST_ACTION({ post }));
+      this.store.dispatch(setUpdatePostAction({ post }));
       this.router.navigate(['posts']);
     }
   }

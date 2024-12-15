@@ -1,9 +1,9 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { initalState, PostsState } from './posts.state';
 import {
-  ADD_POST_ACTION,
-  REMOVE_POST_ACTION,
-  UPDATE_POST_ACTION,
+  setAddPostAction,
+  setRemovePostAction,
+  setUpdatePostAction,
 } from './posts.actions';
 import { Post } from '../../models/post.model';
 
@@ -17,7 +17,7 @@ export const postsFeature = createFeature({
   name: POSTS_FEATURE_KEY,
   reducer: createReducer(
     initalState,
-    on(ADD_POST_ACTION, (state, action) => {
+    on(setAddPostAction, (state, action) => {
       const id = String(state.posts.length + 1);
       const post: Post = { ...action.post, id };
       return {
@@ -25,7 +25,7 @@ export const postsFeature = createFeature({
         posts: [...state.posts, post],
       };
     }),
-    on(UPDATE_POST_ACTION, (state, action) => {
+    on(setUpdatePostAction, (state, action) => {
       const updatedPosts: Post[] = state.posts.map((post) =>
         post.id === action.post.id ? action.post : post
       );
@@ -34,7 +34,7 @@ export const postsFeature = createFeature({
         posts: updatedPosts,
       };
     }),
-    on(REMOVE_POST_ACTION, (state, action) => {
+    on(setRemovePostAction, (state, action) => {
       const remainingPosts: Post[] = state.posts.filter(
         (post) => post.id !== action.id
       );

@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 import { Post } from '../../models/post.model';
 
-export const ADD_POST_ACTION = createAction(
-  '[Posts] Add',
+export const setAddPostAction = createAction(
+  '[Posts state] set add',
   props<{ post: Post }>()
 );
-export const UPDATE_POST_ACTION = createAction(
-  '[Posts] Update',
+export const setUpdatePostAction = createAction(
+  '[Posts state] set update',
   props<{ post: Post }>()
 );
-export const REMOVE_POST_ACTION = createAction(
-  '[Posts] Remove',
+export const setRemovePostAction = createAction(
+  '[Posts state] set remove',
   props<{ id: String }>()
 );

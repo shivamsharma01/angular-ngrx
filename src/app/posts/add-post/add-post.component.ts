@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { ADD_POST_ACTION } from '../posts-store/posts.actions';
+import { setAddPostAction } from '../posts-store/posts.actions';
 import { CommonModule } from '@angular/common';
 import { PostsSlice } from '../posts-store/posts.reducer';
 import { Post } from '../../models/post.model';
@@ -38,7 +38,7 @@ export class AddPostComponent {
   submit() {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
-      this.store.dispatch(ADD_POST_ACTION({ post }));
+      this.store.dispatch(setAddPostAction({ post }));
     }
   }
 }

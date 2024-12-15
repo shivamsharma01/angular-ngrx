@@ -1,10 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 
-export const INCREMENT_ACTION = createAction('[Counter] Increment');
-export const DECREMENT_ACTION = createAction('[Counter] Decrement');
-export const RESET_ACTION = createAction('[Counter] Reset');
-export const CHANNEL_NAME_ACTION = createAction('[Counter] ChannelName');
-export const CUSTOM_INCREMENT_ACTION = createAction(
-  '[Counter] Custom Increment',
+export const setIncrementAction = createAction('[Counter state] set increment');
+export const setDecrementAction = createAction('[Counter state] set decrement');
+export const setResetAction = createAction('[Counter state] set reset');
+export const setChannelNameAction = createAction(
+  '[Counter state] set channel name'
+);
+export const setCustomIncrementAction = createAction(
+  '[Counter state] set custom Increment',
   props<{ value: number }>()
 );

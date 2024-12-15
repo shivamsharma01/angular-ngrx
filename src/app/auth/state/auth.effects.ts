@@ -1,12 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { LOGIN_START_ACTION, LOGIN_SUCCESS_ACTION } from './auth.actions';
-import { exhaustMap, map } from 'rxjs';
+import { setLoginStartAction, setLoginSuccessAction } from './auth.actions';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { AuthResponseData } from '../../models/auth-response-data.model';
 import { SharedState } from '../../shared/store/shared.state';
 import { Store } from '@ngrx/store';
-import { SHOW_LOADING_ACTION } from '../../shared/store/shared.actions';
+import {
+  setShowErrorMessageAction,
+  setShowLoadingAction,
+} from '../../shared/store/shared.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -16,13 +19,19 @@ export class AuthEffects {
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(LOGIN_START_ACTION),
+      ofType(setLoginStartAction),
       exhaustMap((action) => {
         return this.authService.login(action.email, action.password).pipe(
           map((data) => {
             const user = this.authService.formatUser(data as AuthResponseData);
-            this.store.dispatch(SHOW_LOADING_ACTION({ status: false }));
-            return LOGIN_SUCCESS_ACTION({ user });
+            this.store.dispatch(setShowLoadingAction({ status: false }));
+            return setLoginSuccessAction({ user });
+          }),
+          catchError((error) => {
+            console.log(error);
+            this.store.dispatch(setShowLoadingAction({ status: false }));
+            const errorMsg = this.authService.getErrorMsg(error.error.message);
+            return of(setShowErrorMessageAction({ message: errorMsg }));
           })
         );
       })

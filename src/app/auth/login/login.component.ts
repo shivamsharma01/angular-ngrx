@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthSlice } from '../state/auth.reducer';
-import { LOGIN_START_ACTION } from '../state/auth.actions';
-import { SHOW_LOADING_ACTION } from '../../shared/store/shared.actions';
+import { setLoginStartAction } from '../state/auth.actions';
+import { setShowLoadingAction } from '../../shared/store/shared.actions';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,10 @@ export class LoginComponent {
 
   ngOnInit() {
     this.loginGroup = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl('shivam@gmail.com', [
+        Validators.required,
+        Validators.email,
+      ]),
       password: new FormControl(null, [Validators.required]),
     });
   }
@@ -32,7 +35,7 @@ export class LoginComponent {
   loginSubmit() {
     const email = this.loginGroup.value.email;
     const password = this.loginGroup.value.password;
-    this.store.dispatch(SHOW_LOADING_ACTION({ status: true }));
-    this.store.dispatch(LOGIN_START_ACTION({ email, password }));
+    this.store.dispatch(setShowLoadingAction({ status: true }));
+    this.store.dispatch(setLoginStartAction({ email, password }));
   }
 }

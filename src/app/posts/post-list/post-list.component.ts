@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { getPostsSelector } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { REMOVE_POST_ACTION } from '../posts-store/posts.actions';
+import { setRemovePostAction } from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
 import { Post } from '../../models/post.model';
 
@@ -25,6 +25,6 @@ export class PostListComponent {
   }
 
   removePostById(id: string) {
-    this.store.dispatch(REMOVE_POST_ACTION({ id }));
+    this.store.dispatch(setRemovePostAction({ id }));
   }
 }

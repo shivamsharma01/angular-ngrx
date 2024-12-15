@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DECREMENT_ACTION, INCREMENT_ACTION, RESET_ACTION } from '../counter-store/counter.actions';
+import { setDecrementAction, setIncrementAction, setResetAction } from '../counter-store/counter.actions';
 import { CounterSlice } from '../counter-store/counter.reducer';
 
 @Component({
@@ -14,14 +14,14 @@ export class CounterInputComponent {
   constructor(private store: Store<CounterSlice>) {}
 
   increment() {
-    this.store.dispatch(INCREMENT_ACTION());
+    this.store.dispatch(setIncrementAction());
   }
 
   decrement() {
-    this.store.dispatch(DECREMENT_ACTION());
+    this.store.dispatch(setDecrementAction());
   }
 
   reset() {
-    this.store.dispatch(RESET_ACTION());
+    this.store.dispatch(setResetAction());
   }
 }

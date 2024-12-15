@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  CUSTOM_INCREMENT_ACTION,
-  CHANNEL_NAME_ACTION as cName,
+  setCustomIncrementAction,
+  setChannelNameAction as cName,
 } from '../counter-store/counter.actions';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { channelNameSelector } from '../counter-store/counter.selector';
+import { getChannelNameSelector } from '../counter-store/counter.selector';
 import { CommonModule } from '@angular/common';
 import { CounterSlice } from '../counter-store/counter.reducer';
 
@@ -23,11 +23,11 @@ export class CounterInputCustomComponent {
 
   constructor(private store: Store<CounterSlice>) {
     this.value = 0;
-    this.channelName$ = this.store.select(channelNameSelector);
+    this.channelName$ = this.store.select(getChannelNameSelector);
   }
 
   add() {
-    this.store.dispatch(CUSTOM_INCREMENT_ACTION({ value: +this.value }));
+    this.store.dispatch(setCustomIncrementAction({ value: +this.value }));
   }
 
   addChannelName() {
