@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   {
@@ -14,8 +15,12 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/').then((m) => m.AUTH_ROUTES),
   },
   {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
     path: '',
-    redirectTo: 'counter',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ];

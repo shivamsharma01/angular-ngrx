@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideHttpClient } from '@angular/common/http';
 import { sharedFeature } from './shared/store/shared.reducer';
+import { authFeature } from './auth/state/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({}),
     provideState(sharedFeature),
+    provideState(authFeature),
     provideHttpClient(),
   ],
 };
