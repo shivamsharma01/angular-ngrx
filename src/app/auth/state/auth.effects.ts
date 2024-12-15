@@ -25,10 +25,10 @@ export class AuthEffects {
           map((data) => {
             const user = this.authService.formatUser(data as AuthResponseData);
             this.store.dispatch(setShowLoadingAction({ status: false }));
+            this.store.dispatch(setShowErrorMessageAction({ message: '' }));
             return setLoginSuccessAction({ user });
           }),
           catchError((error) => {
-            console.log(error);
             this.store.dispatch(setShowLoadingAction({ status: false }));
             const errorMsg = this.authService.getErrorMsg(error.error.message);
             return of(setShowErrorMessageAction({ message: errorMsg }));
