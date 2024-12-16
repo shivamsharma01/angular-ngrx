@@ -2,8 +2,12 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { initalState, PostsState } from './posts.state';
 import {
   setAddPostAction,
+  setAddPostSuccessAction,
+  setGetPostsSuccessAction,
   setRemovePostAction,
+  setRemovePostSuccessAction,
   setUpdatePostAction,
+  setUpdatePostSuccessAction,
 } from './posts.actions';
 import { Post } from '../../models/post.model';
 
@@ -17,15 +21,13 @@ export const postsFeature = createFeature({
   name: POSTS_FEATURE_KEY,
   reducer: createReducer(
     initalState,
-    on(setAddPostAction, (state, action) => {
-      const id = String(state.posts.length + 1);
-      const post: Post = { ...action.post, id };
+    on(setAddPostSuccessAction, (state, action) => {
       return {
         ...state,
-        posts: [...state.posts, post],
+        posts: [...state.posts, action.post],
       };
     }),
-    on(setUpdatePostAction, (state, action) => {
+    on(setUpdatePostSuccessAction, (state, action) => {
       const updatedPosts: Post[] = state.posts.map((post) =>
         post.id === action.post.id ? action.post : post
       );
@@ -34,13 +36,19 @@ export const postsFeature = createFeature({
         posts: updatedPosts,
       };
     }),
-    on(setRemovePostAction, (state, action) => {
+    on(setRemovePostSuccessAction, (state, action) => {
       const remainingPosts: Post[] = state.posts.filter(
         (post) => post.id !== action.id
       );
       return {
         ...state,
         posts: remainingPosts,
+      };
+    }),
+    on(setGetPostsSuccessAction, (state, action) => {
+      return {
+        ...state,
+        posts: [...action.posts],
       };
     })
   ),

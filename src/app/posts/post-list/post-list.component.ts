@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import { getPostsSelector } from '../posts-store/posts.selector';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { setRemovePostAction } from '../posts-store/posts.actions';
+import {
+  setGetPostsAction,
+  setRemovePostAction,
+} from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
 import { Post } from '../../models/post.model';
 
@@ -22,6 +25,7 @@ export class PostListComponent {
 
   ngOnInit() {
     this.posts$ = this.store.select(getPostsSelector);
+    this.store.dispatch(setGetPostsAction());
   }
 
   removePostById(id: string) {
