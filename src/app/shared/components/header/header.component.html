@@ -3,9 +3,9 @@
   <a class="button" routerLink="/counter">Counter</a> | &nbsp;
   <a class="button" routerLink="/posts">Posts</a> | &nbsp; @if (isAuthenticated$
   | async) {
-  <a class="button" href="#">Logout</a>
+  <a class="button" href="#" (click)="logout($event)">Logout</a>
   } @else {
-  <a class="button" routerLink="/login">Login</a> | &nbsp;
-  <a class="button" routerLink="/signup">Sign Up</a>
+  <a class="button" routerLink="/auth/login">Login</a> | &nbsp;
+  <a class="button" routerLink="/auth/signup">Sign Up</a>
   }
 </nav>

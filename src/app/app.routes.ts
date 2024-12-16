@@ -11,7 +11,7 @@ export const routes: Routes = [
     loadChildren: () => import('./posts/').then((m) => m.POSTS_ROUTES),
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () => import('./auth/').then((m) => m.AUTH_ROUTES),
   },
   {

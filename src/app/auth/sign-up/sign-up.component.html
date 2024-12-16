@@ -1,25 +1,25 @@
 <div class="row">
   <div class="col-md-6 offset-md-3 my-5">
-    <form [formGroup]="loginGroup" (ngSubmit)="loginSubmit()">
-      <h3>Login Form</h3>
-      <hr>
+    <form [formGroup]="signUpGroup" (ngSubmit)="signUpSubmit()">
+      <h3>Signup Form</h3>
+      <hr />
       <div class="mb-3">
         <label>Email</label>
         <input type="text" class="form-control" formControlName="email" />
-        @if (loginGroup.controls['email'].touched &&
-        !loginGroup.controls['email'].valid) { @if
-        (loginGroup.controls['email'].errors?.['required']) {
+        @if (signUpGroup.controls['email'].touched &&
+        !signUpGroup.controls['email'].valid) { @if
+        (signUpGroup.controls['email'].errors?.['required']) {
         <p class="text text-danger">Email is Required</p>
-        } @if (loginGroup.controls['email'].errors?.['email']) {
+        } @if (signUpGroup.controls['email'].errors?.['email']) {
         <p class="text text-danger">Invalid Email Address</p>
         } }
       </div>
       <div class="mb-3">
         <label>Password</label>
         <input type="text" class="form-control" formControlName="password" />
-        @if (loginGroup.controls['password'].touched &&
-        !loginGroup.controls['password'].valid) { @if
-        (loginGroup.controls['password'].errors?.['required']) {
+        @if (signUpGroup.controls['password'].touched &&
+        !signUpGroup.controls['password'].valid) { @if
+        (signUpGroup.controls['password'].errors?.['required']) {
         <p class="text text-danger">Password is Required</p>
         } }
       </div>
@@ -27,7 +27,7 @@
         <button
           type="submit"
           class="btn btn-primary"
-          [disabled]="!loginGroup.valid"
+          [disabled]="!signUpGroup.valid"
         >
           Login
         </button>

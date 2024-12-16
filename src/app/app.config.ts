@@ -6,6 +6,8 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideHttpClient } from '@angular/common/http';
 import { sharedFeature } from './shared/store/shared.reducer';
 import { authFeature } from './auth/state/auth.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { AuthEffects } from './auth/state/auth.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({}),
     provideState(sharedFeature),
     provideState(authFeature),
+    provideEffects(AuthEffects),
     provideHttpClient(),
   ],
 };

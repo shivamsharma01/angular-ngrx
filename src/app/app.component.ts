@@ -10,6 +10,7 @@ import {
   getLoadingSelector,
 } from './shared/store/shared.selector';
 import { CommonModule } from '@angular/common';
+import { setAutoLoginAction } from './auth/state/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -33,5 +34,6 @@ export class AppComponent {
   ngOnInit() {
     this.loadingStatus$ = this.store.select(getLoadingSelector);
     this.errorMessage$ = this.store.select(getErrorMessageSelector);
+    this.store.dispatch(setAutoLoginAction());
   }
 }

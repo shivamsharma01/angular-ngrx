@@ -5,6 +5,7 @@ import { AuthSlice } from '../../../auth/state/auth.reducer';
 import { Observable } from 'rxjs';
 import { getIsAuthenticated } from '../../../auth/state/auth.selector';
 import { CommonModule } from '@angular/common';
+import { setLogoutAction } from '../../../auth/state/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -20,5 +21,10 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.isAuthenticated$ = this.store.select(getIsAuthenticated);
+  }
+
+  logout(event: Event) {
+    event.preventDefault();
+    this.store.dispatch(setLogoutAction());
   }
 }
