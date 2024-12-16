@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Post } from '../models/post.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PostService {
   constructor(private http: HttpClient) {}
 

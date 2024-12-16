@@ -6,17 +6,12 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { postsFeature } from './posts-store/posts.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { PostEffects } from './posts-store/posts.effects';
-import { PostService } from '../services/posts.service';
 
 export const POSTS_ROUTES: Routes = [
   {
     path: '',
     component: PostListComponent,
-    providers: [
-      provideEffects(PostEffects),
-      PostService,
-      provideState(postsFeature),
-    ],
+    providers: [provideEffects(PostEffects), provideState(postsFeature)],
     children: [
       { path: 'add', component: AddPostComponent },
       { path: 'edit/:id', component: UpdatePostComponent },

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthSlice } from '../../../auth/state/auth.reducer';
 import { Observable } from 'rxjs';
-import { getIsAuthenticated } from '../../../auth/state/auth.selector';
+import { getIsAuthenticatedSelector } from '../../../auth/state/auth.selector';
 import { CommonModule } from '@angular/common';
 import { setLogoutAction } from '../../../auth/state/auth.actions';
 
@@ -20,7 +20,7 @@ export class HeaderComponent {
   constructor(private store: Store<AuthSlice>) {}
 
   ngOnInit() {
-    this.isAuthenticated$ = this.store.select(getIsAuthenticated);
+    this.isAuthenticated$ = this.store.select(getIsAuthenticatedSelector);
   }
 
   logout(event: Event) {

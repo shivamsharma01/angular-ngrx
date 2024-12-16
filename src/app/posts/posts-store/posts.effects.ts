@@ -66,7 +66,6 @@ export class PostEffects {
       mergeMap((action) => {
         return this.postService.removePost(String(action.id)).pipe(
           map((data) => {
-            console.log(data);
             return setRemovePostSuccessAction({ id: action.id });
           })
         );
