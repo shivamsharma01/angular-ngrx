@@ -1,12 +1,9 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { initalState, PostsState } from './posts.state';
 import {
-  setAddPostAction,
   setAddPostSuccessAction,
   setGetPostsSuccessAction,
-  setRemovePostAction,
   setRemovePostSuccessAction,
-  setUpdatePostAction,
   setUpdatePostSuccessAction,
 } from './posts.actions';
 import { Post } from '../../models/post.model';

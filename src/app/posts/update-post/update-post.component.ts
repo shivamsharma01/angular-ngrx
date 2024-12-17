@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -8,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { getPostsByIdSelector } from '../posts-store/posts.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { setUpdatePostAction } from '../posts-store/posts.actions';
 import { PostsSlice } from '../posts-store/posts.reducer';
 import { Post } from '../../models/post.model';
@@ -22,13 +21,10 @@ import { Post } from '../../models/post.model';
 })
 export class UpdatePostComponent {
   subscription: Subscription;
+  post: Post;
   postForm: FormGroup;
 
-  constructor(
-    private store: Store<PostsSlice>,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private store: Store<PostsSlice>) {}
 
   ngOnInit() {
     this.postForm = new FormGroup({
@@ -42,27 +38,18 @@ export class UpdatePostComponent {
         Validators.minLength(10),
       ]),
     });
-    this.subscription = this.activatedRoute.paramMap.subscribe(
-      (params: ParamMap) => {
-        const id = params.get('id') as string;
-        this.populateForm(this.store.select(getPostsByIdSelector(id)));
-      }
-    );
-  }
-
-  populateForm(post$: Observable<Post | undefined>): void {
-    post$.subscribe((post) => {
-      if (post) {
-        this.postForm.patchValue(post);
-      }
-    });
+    this.subscription = this.store
+      .select(getPostsByIdSelector)
+      .subscribe((post) => {
+        this.post = post as Post;
+        this.postForm.patchValue(this.post);
+      });
   }
 
   update() {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
       this.store.dispatch(setUpdatePostAction({ post }));
-      this.router.navigate(['posts']);
     }
   }
 

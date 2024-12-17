@@ -12,6 +12,7 @@
           <th>Description</th>
           <th>Update</th>
           <th>Remove</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +23,7 @@
           <td>{{ item.description }}</td>
           <td><a [routerLink]="['edit', item.id]">Update</a></td>
           <td><button (click)="removePostById(item.id!)">X</button></td>
+          <td><a [routerLink]="['details', item.id]">Details</a></td>
         </tr>
         }
       </tbody>

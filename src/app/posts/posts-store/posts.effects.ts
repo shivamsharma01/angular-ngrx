@@ -11,12 +11,15 @@ import {
   setUpdatePostAction,
   setUpdatePostSuccessAction,
 } from './posts.actions';
-import { map, mergeMap } from 'rxjs';
+import { filter, map, mergeMap, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { ROUTER_NAVIGATION, RouterNavigatedAction } from '@ngrx/router-store';
 
 @Injectable()
 export class PostEffects {
   actions$ = inject(Actions);
   postService = inject(PostService);
+  router = inject(Router);
 
   getPosts$ = createEffect(() => {
     return this.actions$.pipe(
@@ -67,6 +70,36 @@ export class PostEffects {
         return this.postService.removePost(String(action.id)).pipe(
           map((data) => {
             return setRemovePostSuccessAction({ id: action.id });
+          })
+        );
+      })
+    );
+  });
+
+  updatePostRedirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(setUpdatePostSuccessAction),
+        tap((action) => {
+          this.router.navigate(['posts']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  getSinglePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ROUTER_NAVIGATION),
+      filter((r: RouterNavigatedAction) =>
+        r.payload.routerState.url.startsWith('/posts/details')
+      ),
+      map((r: RouterNavigatedAction) => r.payload.routerState['params']['id']),
+      switchMap((id) => {
+        return this.postService.getPostById(id).pipe(
+          map((data) => {
+            const postData = [{ ...data, id }];
+            return setGetPostsSuccessAction({ posts: postData });
           })
         );
       })
