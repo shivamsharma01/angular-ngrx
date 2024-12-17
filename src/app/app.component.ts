@@ -25,7 +25,7 @@ import { setAutoLoginAction } from './auth/state/auth.actions';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'counter-store';
+  title = 'ngrx-project';
   loadingStatus$: Observable<boolean>;
   errorMessage$: Observable<string>;
 
