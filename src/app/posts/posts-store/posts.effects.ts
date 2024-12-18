@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PostService } from '../../services/posts.service';
 import {
+  dummyAction,
   setAddPostAction,
   setAddPostSuccessAction,
   setGetPostsAction,
@@ -11,15 +12,29 @@ import {
   setUpdatePostAction,
   setUpdatePostSuccessAction,
 } from './posts.actions';
-import { filter, map, mergeMap, switchMap, tap } from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from '@ngrx/router-store';
+import { Update } from '@ngrx/entity';
+import { Post } from '../../models/post.model';
+import { PostsSlice } from './posts.reducer';
+import { Store } from '@ngrx/store';
+import { getPostsSelector } from './posts.selector';
 
 @Injectable()
 export class PostEffects {
   actions$ = inject(Actions);
   postService = inject(PostService);
   router = inject(Router);
+  store = inject(Store<PostsSlice>);
 
   getPosts$ = createEffect(() => {
     return this.actions$.pipe(
@@ -55,8 +70,13 @@ export class PostEffects {
         return this.postService.updatePost(action.post).pipe(
           map((data) => {
             const id = String(action.post.id);
-            const post = { ...data[id], id };
-            return setUpdatePostSuccessAction({ post });
+            const updatePost: Update<Post> = {
+              id,
+              changes: {
+                ...action.post,
+              },
+            };
+            return setUpdatePostSuccessAction({ post: updatePost });
           })
         );
       })
@@ -95,13 +115,17 @@ export class PostEffects {
         r.payload.routerState.url.startsWith('/posts/details')
       ),
       map((r: RouterNavigatedAction) => r.payload.routerState['params']['id']),
-      switchMap((id) => {
-        return this.postService.getPostById(id).pipe(
-          map((data) => {
-            const postData = [{ ...data, id }];
-            return setGetPostsSuccessAction({ posts: postData });
-          })
-        );
+      withLatestFrom(this.store.select(getPostsSelector)),
+      switchMap(([id, posts]) => {
+        if (posts.length <= 0) {
+          return this.postService.getPostById(id).pipe(
+            map((data) => {
+              const postData = [{ ...data, id }];
+              return setGetPostsSuccessAction({ posts: postData });
+            })
+          );
+        }
+        return of(dummyAction());
       })
     );
   });

@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       router: routerReducer,
     }),
     provideRouterStore({
-      serializer: CustomSerializer
+      serializer: CustomSerializer,
     }),
     provideState(sharedFeature),
     provideState(authFeature),

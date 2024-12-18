@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, exhaustMap, Observable, of, throwError, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthResponseData } from '../models/auth-response-data.model';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';

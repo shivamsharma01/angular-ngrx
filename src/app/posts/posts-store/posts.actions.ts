@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { Post } from '../../models/post.model';
+import { Update } from '@ngrx/entity';
+
+export const dummyAction = createAction('[Dummy state] set dummy');
 
 export const setUpdatePostAction = createAction(
   '[Posts state] set update',
@@ -8,17 +11,17 @@ export const setUpdatePostAction = createAction(
 
 export const setUpdatePostSuccessAction = createAction(
   '[Posts state] set update post success',
-  props<{ post: Post }>()
+  props<{ post: Update<Post> }>()
 );
 
 export const setRemovePostAction = createAction(
   '[Posts state] set remove',
-  props<{ id: String }>()
+  props<{ id: string }>()
 );
 
 export const setRemovePostSuccessAction = createAction(
   '[Posts state] set remove post success',
-  props<{ id: String }>()
+  props<{ id: string }>()
 );
 
 export const setGetPostsAction = createAction('[Posts state] set get posts');
